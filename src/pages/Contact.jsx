@@ -47,7 +47,7 @@ const Contact = () => {
         {/* Contact Card */}
         <div className="relative z-10 flex flex-col md:flex-row w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
           {/* Left Section - Contact Info */}
-          <div className="hidden md:flex flex-col justify-center items-center bg-gradient-to-br from-sky-50 to-red-50 p-10 w-1/2">
+          <div className="flex flex-col justify-center items-center bg-gradient-to-br from-sky-50 to-red-50 p-6 md:p-10 w-full md:w-1/2">
             <div className="mb-6 transition-transform duration-500 hover:scale-105">
               <img
                 src={logo}

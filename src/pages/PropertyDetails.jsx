@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-
   MapPin,
   Bed,
   Bath,
@@ -15,6 +14,9 @@ import {
   Send,
   Home as HomeIcon,
   Sparkles,
+  Camera,
+  Heart,
+  Share2,
 } from "lucide-react";
 import api from "../utils/api";
 
@@ -32,19 +34,8 @@ const PropertyDetails = ({ property, setCurrentPage }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      // Normalize phone: strip non-digits and ensure 10-digit number
-      const rawPhone = formData.phone || "";
-      const digits = rawPhone.replace(/\D/g, "");
-      const phone = digits.length > 10 ? digits.slice(-10) : digits;
-      if (phone.length !== 10) {
-        alert("Please enter a valid 10-digit phone number");
-        setLoading(false);
-        return;
-      }
-
       const response = await api.post("/enquiries", {
         ...formData,
-        phone,
         propertyId: property._id,
       });
       if (response.data.success) {
@@ -100,19 +91,19 @@ const PropertyDetails = ({ property, setCurrentPage }) => {
   return (
     <div
       style={{ fontFamily: "'Inter', sans-serif" }}
-      className="bg-gradient-to-b from-sky-50/30 to-white"
+      className="bg-gradient-to-b from-indigo-50/30 to-white"
     >
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden bg-gradient-to-br from-sky-500 via-sky-600 to-red-600">
+      <section className="relative py-12 md:py-20 overflow-hidden bg-gradient-to-br from-indigo-500 via-purple-600 to-rose-600 px-4 sm:px-6 lg:px-8">
         {/* Animated Background Shapes */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-0 left-0 w-24 sm:w-48 md:w-96 h-24 sm:h-48 md:h-96 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
           <div
-            className="absolute bottom-0 right-0 w-96 h-96 bg-red-400/20 rounded-full blur-3xl animate-pulse"
+            className="absolute bottom-0 right-0 w-24 sm:w-48 md:w-96 h-24 sm:h-48 md:h-96 bg-rose-400/20 rounded-full blur-3xl animate-pulse"
             style={{ animationDelay: "1s" }}
           ></div>
           <div
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-sky-300/20 rounded-full blur-2xl animate-pulse"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 sm:w-32 md:w-64 h-16 sm:h-32 md:h-64 bg-indigo-300/20 rounded-full blur-2xl animate-pulse"
             style={{ animationDelay: "0.5s" }}
           ></div>
         </div>
@@ -155,10 +146,10 @@ const PropertyDetails = ({ property, setCurrentPage }) => {
           </div>
 
           <h1
-            className="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-2xl"
+            className="text-2xl sm:text-3xl md:text-5xl font-extrabold mb-3 md:mb-4 drop-shadow-2xl"
             style={{ fontFamily: "'Poppins', sans-serif" }}
           >
-            Your <span className="text-red-200">Dream Home</span> Awaits
+            Your <span className="text-rose-200">Dream Home</span> Awaits
           </h1>
           <p
             className="text-base md:text-lg text-white/95 leading-relaxed drop-shadow-lg max-w-2xl mx-auto"
@@ -171,23 +162,22 @@ const PropertyDetails = ({ property, setCurrentPage }) => {
       </section>
 
       {/* Breadcrumb */}
-      <section className="bg-white border-b-2 border-sky-100 py-4 sticky top-20 z-30 backdrop-blur-md bg-white/95 shadow-sm">
+      <section className="bg-white border-b-2 border-indigo-100 py-3 md:py-4 sticky top-20 z-30 backdrop-blur-md bg-white/95 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav
-            className="flex items-center gap-2 flex-wrap"
+            className="flex items-center gap-2 flex-wrap text-xs sm:text-sm"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             <span
               onClick={() => setCurrentPage("home")}
-              className="text-gray-600 text-sm cursor-pointer hover:text-sky-600 transition-colors font-medium"
+              className="text-gray-600 cursor-pointer hover:text-indigo-600 transition-colors font-medium"
             >
-
               Home
             </span>
-            <ChevronRight size={16} className="text-gray-400" />
+            <ChevronRight size={14} className="text-gray-400 sm:w-4" />
             <span
               onClick={() => setCurrentPage("listings")}
-              className="text-gray-600 text-sm cursor-pointer hover:text-sky-600 transition-colors font-medium"
+              className="text-gray-600 cursor-pointer hover:text-indigo-600 transition-colors font-medium"
             >
               Properties
             </span>
@@ -200,16 +190,16 @@ const PropertyDetails = ({ property, setCurrentPage }) => {
       </section>
 
       {/* Gallery with Borders */}
-      <section className="py-8">
+      <section className="py-6 md:py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-3 md:gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-2 md:gap-4">
             {/* Main Image/Video */}
-            <div className="md:col-span-2 md:row-span-2 relative overflow-hidden rounded-2xl border-4 border-sky-200 shadow-xl group bg-gray-100">
+            <div className="md:col-span-2 md:row-span-2 relative overflow-hidden rounded-lg md:rounded-2xl border-2 md:border-4 border-indigo-200 shadow-lg md:shadow-xl group bg-gray-100">
               {property.video?.url ? (
                 <video
                   src={property.video.url}
                   controls
-                  className="w-full h-full object-cover min-h-[400px] md:min-h-[600px]"
+                  className="w-full h-full object-cover min-h-[250px] sm:min-h-[400px] md:min-h-[600px]"
                 />
               ) : (
                 <img
@@ -218,12 +208,12 @@ const PropertyDetails = ({ property, setCurrentPage }) => {
                     "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800"
                   }
                   alt={property.title}
-                  className="w-full h-full object-cover min-h-[400px] md:min-h-[600px] group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-full object-cover min-h-[250px] sm:min-h-[400px] md:min-h-[600px] group-hover:scale-110 transition-transform duration-700"
                 />
               )}
               {/* Featured Badge */}
-              <div className="absolute top-4 left-4 bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 rounded-full font-bold text-xs shadow-2xl flex items-center gap-1 animate-pulse">
-                <Sparkles size={14} />
+              <div className="absolute top-3 left-3 md:top-4 md:left-4 bg-gradient-to-r from-rose-500 to-rose-600 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full font-bold text-xs shadow-2xl flex items-center gap-1 animate-pulse">
+                <Sparkles size={12} className="md:w-[14px]" />
                 Featured
               </div>
             </div>
@@ -232,7 +222,7 @@ const PropertyDetails = ({ property, setCurrentPage }) => {
             {property.images?.slice(1, 5).map((image, i) => (
               <div
                 key={i}
-                className="relative overflow-hidden rounded-xl border-3 border-sky-200 shadow-lg group bg-gray-100 h-[180px] md:h-[290px]"
+                className="relative overflow-hidden rounded-lg md:rounded-xl border-2 md:border-3 border-indigo-200 shadow-md md:shadow-lg group bg-gray-100 h-[140px] md:h-[290px]"
               >
                 <img
                   src={image.url}
@@ -248,9 +238,9 @@ const PropertyDetails = ({ property, setCurrentPage }) => {
             ].map((_, i) => (
               <div
                 key={`placeholder-${i}`}
-                className="relative overflow-hidden rounded-xl border-3 border-sky-100 shadow-lg bg-gradient-to-br from-sky-50 to-gray-50 h-[180px] md:h-[290px] flex items-center justify-center"
+                className="relative overflow-hidden rounded-lg md:rounded-xl border-2 md:border-3 border-indigo-100 shadow-md md:shadow-lg bg-gradient-to-br from-indigo-50 to-gray-50 h-[140px] md:h-[290px] flex items-center justify-center"
               >
-                <HomeIcon size={48} className="text-sky-200" />
+                <HomeIcon size={32} className="text-indigo-200 md:w-[48px]" />
               </div>
             ))}
           </div>
@@ -258,14 +248,14 @@ const PropertyDetails = ({ property, setCurrentPage }) => {
       </section>
 
       {/* Details Layout */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 md:pb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2">
             {/* Property Header */}
-            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-xl border-2 border-sky-100 mb-6">
+            <div className="bg-white rounded-xl md:rounded-2xl p-5 md:p-8 shadow-lg md:shadow-xl border-2 border-indigo-100 mb-4 md:mb-6">
               <span
-                className="inline-block px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full font-bold text-xs mb-4 shadow-lg"
+                className="inline-block px-3 md:px-4 py-1.5 md:py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full font-bold text-xs mb-4 shadow-lg"
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
                 For Sale

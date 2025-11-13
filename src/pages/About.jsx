@@ -3,46 +3,21 @@ import { Target, Eye, Award, Heart, Home, Sparkles } from "lucide-react";
 const About = ({ setCurrentPage }) => {
   return (
     <div style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
-      {/* Hero Section with Gradient (No Background Image) */}
-      <section className="relative py-24 overflow-hidden bg-gradient-to-br from-sky-500 via-sky-600 to-red-600">
-        {/* Animated Background Shapes */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
-          <div
-            className="absolute bottom-0 right-0 w-96 h-96 bg-red-400/20 rounded-full blur-3xl animate-pulse"
-            style={{ animationDelay: "1s" }}
-          ></div>
-          <div
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-sky-300/20 rounded-full blur-2xl animate-pulse"
-            style={{ animationDelay: "0.5s" }}
-          ></div>
-        </div>
+      {/* Hero Section with Background Image */}
+      <section className="relative py-24 overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-700 to-rose-600">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&q=80')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "brightness(0.45)",
+          }}
+        ></div>
 
-        {/* Animated Particles */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(12)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-2 h-2 bg-white/30 rounded-full animate-pulse"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${2 + Math.random() * 3}s`,
-              }}
-            ></div>
-          ))}
-        </div>
-
-        {/* Geometric Pattern Overlay */}
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px)`,
-            }}
-          ></div>
-        </div>
+        {/* Gradient Overlay - Minimal */}
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/15 via-purple-600/10 to-rose-600/15"></div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full mb-4">
@@ -51,12 +26,12 @@ const About = ({ setCurrentPage }) => {
           </div>
 
           <h1
-            className="text-5xl md:text-6xl font-extrabold mb-6 drop-shadow-2xl"
+            className="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-6 drop-shadow-2xl"
             style={{ fontFamily: "'Poppins', sans-serif" }}
           >
-            About <span className="text-red-200">Hi-Tech Homes</span>
+            About <span className="text-rose-200">Hi-Tech Homes</span>
           </h1>
-          <p className="text-lg md:text-xl text-white/95 leading-relaxed drop-shadow-lg max-w-3xl mx-auto">
+          <p className="text-xs sm:text-sm md:text-xl text-white/95 leading-relaxed drop-shadow-lg max-w-3xl mx-auto">
             Turning Transactions into Relationships — Building trust and
             creating lasting partnerships in real estate.
           </p>
