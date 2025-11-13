@@ -1,25 +1,26 @@
 import { Building2, FileText, TrendingUp } from 'lucide-react';
 
-const DashboardStats = ({ properties }) => {
+const DashboardStats = ({ properties, enquiries }) => {
+  const enquiryCount = enquiries?.total ?? enquiries?.total ?? 0;
   const stats = [
-    { 
-      label: 'Total Properties', 
-      value: properties.length, 
-      icon: Building2, 
+    {
+      label: 'Total Properties',
+      value: properties.length,
+      icon: Building2,
       color: '#2563eb',
       bgGradient: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)'
     },
-    { 
-      label: 'Total Enquiries', 
-      value: 45, 
-      icon: FileText, 
+    {
+      label: 'Total Enquiries',
+      value: enquiryCount || 0,
+      icon: FileText,
       color: '#dc2626',
       bgGradient: 'linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%)'
     },
-    { 
-      label: 'Active Listings', 
-      value: properties.filter(p => p.status === 'active').length, 
-      icon: TrendingUp, 
+    {
+      label: 'Active Listings',
+      value: properties.filter(p => p.status === 'active').length,
+      icon: TrendingUp,
       color: '#10b981',
       bgGradient: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)'
     }

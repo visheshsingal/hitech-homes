@@ -19,6 +19,7 @@ const AdminDashboard = ({ setCurrentPage }) => {
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [authChecked, setAuthChecked] = useState(false);
+  const [enquiryStats, setEnquiryStats] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -32,6 +33,15 @@ const AdminDashboard = ({ setCurrentPage }) => {
     } else {
       console.log("✅ Token found:", token.substring(0, 30) + "...");
       fetchProperties();
+      // fetch enquiry stats for dashboard
+      (async () => {
+        try {
+          const res = await api.get('/enquiries/stats');
+          setEnquiryStats(res.data.data);
+        } catch (err) {
+          console.warn('Could not fetch enquiry stats', err?.response?.data || err.message);
+        }
+      })();
     }
 
     setAuthChecked(true);
@@ -144,6 +154,8 @@ const AdminDashboard = ({ setCurrentPage }) => {
         </div>
 
         <DashboardStats properties={properties} />
+  {/* pass enquiry stats so DashboardStats shows live data */}
+  <DashboardStats properties={properties} enquiries={enquiryStats} />
 
         {/* Properties Table Card */}
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
