@@ -7,6 +7,7 @@ import {
   LogOut,
   Menu,
   X,
+  Mail,
 } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 
@@ -18,6 +19,7 @@ const AdminSidebar = ({ currentPage, setCurrentPage }) => {
 
   const menuItems = [
     { name: "Dashboard", page: "admin-dashboard", icon: TrendingUp },
+    { name: "Enquiries", page: "admin-enquiries", icon: Mail },
     { name: "Add Property", page: "add-property", icon: Plus },
     { name: "View Site", page: "home", icon: Home },
   ];

@@ -11,6 +11,7 @@ import Contact from "./pages/Contact";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AddProperty from "./pages/AddProperty";
+import AdminEnquiries from "./pages/AdminEnquiries";
 import "./styles/index.css";
 
 function App() {
@@ -48,6 +49,8 @@ function App() {
         return <AdminLogin setCurrentPage={setCurrentPage} />;
       case "admin-dashboard":
         return <AdminDashboard setCurrentPage={setCurrentPage} />;
+      case "admin-enquiries":
+        return <AdminEnquiries setCurrentPage={setCurrentPage} />;
       case "add-property":
         return <AddProperty setCurrentPage={setCurrentPage} />;
       default:
@@ -60,16 +63,9 @@ function App() {
     }
   };
 
-  const showNavbar = ![
-    "admin-login",
-    "admin-dashboard",
-    "add-property",
-  ].includes(currentPage);
-  const showFooter = ![
-    "admin-login",
-    "admin-dashboard",
-    "add-property",
-  ].includes(currentPage);
+  const adminPages = ["admin-login", "admin-dashboard", "admin-enquiries", "add-property"];
+  const showNavbar = !adminPages.includes(currentPage);
+  const showFooter = !adminPages.includes(currentPage);
 
   return (
     <AuthProvider>

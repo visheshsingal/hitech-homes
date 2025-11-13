@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+
   MapPin,
   Bed,
   Bath,
@@ -31,8 +32,19 @@ const PropertyDetails = ({ property, setCurrentPage }) => {
     e.preventDefault();
     setLoading(true);
     try {
+      // Normalize phone: strip non-digits and ensure 10-digit number
+      const rawPhone = formData.phone || "";
+      const digits = rawPhone.replace(/\D/g, "");
+      const phone = digits.length > 10 ? digits.slice(-10) : digits;
+      if (phone.length !== 10) {
+        alert("Please enter a valid 10-digit phone number");
+        setLoading(false);
+        return;
+      }
+
       const response = await api.post("/enquiries", {
         ...formData,
+        phone,
         propertyId: property._id,
       });
       if (response.data.success) {
@@ -169,6 +181,7 @@ const PropertyDetails = ({ property, setCurrentPage }) => {
               onClick={() => setCurrentPage("home")}
               className="text-gray-600 text-sm cursor-pointer hover:text-sky-600 transition-colors font-medium"
             >
+
               Home
             </span>
             <ChevronRight size={16} className="text-gray-400" />
